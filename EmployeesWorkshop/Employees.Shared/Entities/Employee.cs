@@ -15,7 +15,7 @@ public class Employee
     [Display(Name = "Apellido")]
     [Required(ErrorMessage = "El campo {0} debe de ser obligatorio")]
     [MaxLength(30, ErrorMessage = "el campo{0} no puede tener {1} caracteres")]
-    public string? LastName { get; set; }
+    public string LastName { get; set; } = null!;
 
     [Display(Name = "Esta activo")]
     public bool IsActive { get; set; }
