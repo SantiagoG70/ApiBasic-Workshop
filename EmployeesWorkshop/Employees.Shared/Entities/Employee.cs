@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Employees.Shared.Entities;
 
@@ -8,12 +9,12 @@ public class Employee
 
     [Display(Name = "Nombre")]
     [Required(ErrorMessage = "El campo {0} debe de ser obligatorio")]
-    [MaxLength(30, ErrorMessage = "Maximo 30 Caracteres")]
+    [MaxLength(30, ErrorMessage = "el campo{0} no puede tener {1} caracteres")]
     public string FirstName { get; set; } = null!;
 
     [Display(Name = "Apellido")]
     [Required(ErrorMessage = "El campo {0} debe de ser obligatorio")]
-    [MaxLength(30, ErrorMessage = "Maximo 30 Caracteres")]
+    [MaxLength(30, ErrorMessage = "el campo{0} no puede tener {1} caracteres")]
     public string? LastName { get; set; }
 
     [Display(Name = "Esta activo")]
@@ -24,6 +25,7 @@ public class Employee
 
     [Display(Name = "Salario")]
     [Required(ErrorMessage = "El salario es obligatorio")]
-    [Range(1000000, double.MaxValue, ErrorMessage = "El salario debe ser mínimo de $1,000,000")]
+    [Range(1000000, double.MaxValue, ErrorMessage = "el {0} no puede ser menor a {1} ")]
+    [Column(TypeName = "decimal(18,2)")]
     public decimal Salary { get; set; }
 }
