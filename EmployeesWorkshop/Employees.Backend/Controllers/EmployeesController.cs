@@ -1,77 +1,38 @@
-﻿using DocuSign.eSign.Model;
-using Employees.Backend.Data;
+﻿using Employees.Backend.Data;
+using Employees.Backend.UnitsOfWork.Interfaces;
 using Employees.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Orders.Backend.Controllers;
 
 namespace Employees.Backend.Controllers;
 
 [ApiController]
-[Route("api/[Controller]")]
-public class EmployeesController : ControllerBase
+[Route("api/[controller]")]
+public class EmployeesController : GenericController<Employee>
 {
     private readonly DataContext _context;
 
-    public EmployeesController(DataContext context)
+    public EmployeesController(
+        DataContext context,
+        IGenericUnitOfWork<Employee> unit) : base(unit)
     {
         _context = context;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAsync()
+    [HttpGet("search/{firstName}")]
+    public async Task<IActionResult> SearchAsync(string firstName)
     {
-        return Ok(await _context.Employees.ToListAsync());
-    }
+        if (string.IsNullOrWhiteSpace(firstName))
+            return BadRequest("El texto de búsqueda es requerido.");
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetAsync(int id)
-    {
-        var country = await _context.Employees.FirstOrDefaultAsync(c => c.Id == id);
-        if (country == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(country);
-    }
-
-    [HttpGet("search/{text}")]
-    public async Task<IActionResult> GetAsync(string text)
-    {
-        var employees = await _context.Employees
-            .Where(e => e.FirstName.Contains(text) || e.LastName.Contains(text))
+        var list = await _context.Employees
+            .AsNoTracking()
+            .Where(e =>
+                (e.FirstName ?? string.Empty).Contains(firstName) ||
+                (e.LastName ?? string.Empty).Contains(firstName))
             .ToListAsync();
 
-        return Ok(employees);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> PostAsync(Employee employee)
-    {
-        _context.Employees.Add(employee);
-        await _context.SaveChangesAsync();
-        return Ok(employee);
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(int id)
-    {
-        var country = await _context.Employees.FirstOrDefaultAsync(c => c.Id == id);
-        if (country == null)
-        {
-            return NotFound();
-        }
-
-        _context.Remove(country);
-        await _context.SaveChangesAsync();
-        return NoContent();
-    }
-
-    [HttpPut]
-    public async Task<IActionResult> PutAsync(Employee employee)
-    {
-        _context.Update(employee);
-        await _context.SaveChangesAsync();
-        return Ok(employee);
+        return Ok(list);
     }
 }
