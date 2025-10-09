@@ -1,9 +1,14 @@
-﻿using Employees.Shared.Responses;
+﻿using Employees.Shared.DTOs;
+using Employees.Shared.Responses;
 
 namespace Employees.Backend.UnitsOfWork.Interfaces;
 
 public interface IGenericUnitOfWork<T> where T : class
 {
+    Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
+
     Task<ActionResponse<IEnumerable<T>>> GetAsync();
 
     Task<ActionResponse<T>> AddAsync(T model);
