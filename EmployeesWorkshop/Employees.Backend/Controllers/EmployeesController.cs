@@ -1,4 +1,5 @@
 ﻿using Employees.Backend.UnitsOfWork.Interfaces;
+using Employees.Shared.DTOs;
 using Employees.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,17 @@ namespace Employees.Backend.Controllers
         public EmployeesController(IGenericUnitOfWork<Employee> unit, IEmployeesUnitOfWork employeesUnitOfWork) : base(unit)
         {
             _employeesUnitOfWork = employeesUnitOfWork;
+        }
+
+        [HttpGet("paginated")]
+        public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
+        {
+            var response = await _employeesUnitOfWork.GetAsync(pagination);
+            if (response.WasSucces)
+            {
+                return Ok(response.Result);
+            }
+            return BadRequest();
         }
 
         [HttpGet]

@@ -1,9 +1,9 @@
 ﻿using Employees.Backend.Data;
+using Employees.Backend.Repositories.Interfaces;
 using Employees.Backend.UnitsOfWork.Implementations;
+using Employees.Shared.Entities;
 using Employees.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
-using Employees.Backend.Repositories.Interfaces;
-using Employees.Shared.Entities;
 
 namespace Employees.Backend.Repositories.Implementations;
 
@@ -19,7 +19,7 @@ public class EmployeesRepository : GenericRepository<Employee>, IEmployeesReposi
     public override async Task<ActionResponse<IEnumerable<Employee>>> GetAsync()
     {
         var employees = await _context.Employees
-            .AsNoTracking()
+            .OrderBy(x => x.FirstName)
             .ToListAsync();
 
         return new ActionResponse<IEnumerable<Employee>>
