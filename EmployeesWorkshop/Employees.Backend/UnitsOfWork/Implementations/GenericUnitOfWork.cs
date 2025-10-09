@@ -1,7 +1,6 @@
-﻿using DocuSign.eSign.Model;
-using Employees.Backend.UnitsOfWork.Interfaces;
+﻿using Employees.Backend.UnitsOfWork.Interfaces;
 using Employees.Shared.Responses;
-using Orders.Backend.Repositories.Interfaces;
+using Employees.Backend.Repositories.Interfaces;
 
 namespace Employees.Backend.UnitsOfWork.Implementations;
 
@@ -21,8 +20,6 @@ public class GenericUnitOfWork<T> : IGenericUnitOfWork<T> where T : class
     public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync() => await _repository.GetAsync();
 
     public virtual async Task<ActionResponse<T>> GetAsync(int id) => await _repository.GetAsync(id);
-
-    public virtual async Task<ActionResponse<T>> GetAsync(string firstName) => await _repository.GetAsync(firstName);
 
     public virtual async Task<ActionResponse<T>> UpdateAsync(T model) => await _repository.UpdateAsync(model);
 }

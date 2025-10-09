@@ -1,5 +1,4 @@
-﻿using DocuSign.eSign.Model;
-using Employees.Shared.Entities;
+﻿using Employees.Shared.Entities;
 
 namespace Employees.Backend.Data;
 

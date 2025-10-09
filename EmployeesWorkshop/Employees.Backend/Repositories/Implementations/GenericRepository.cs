@@ -1,7 +1,7 @@
 ﻿using Employees.Backend.Data;
 using Employees.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
-using Orders.Backend.Repositories.Interfaces;
+using Employees.Backend.Repositories.Interfaces;
 
 namespace Employees.Backend.UnitsOfWork.Implementations;
 
@@ -70,23 +70,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     public virtual async Task<ActionResponse<T>> GetAsync(int id)
     {
         var row = await _entity.FindAsync(id);
-        if (row == null)
-        {
-            return new ActionResponse<T>
-            {
-                Message = "Registro no encontrado"
-            };
-        }
-        return new ActionResponse<T>
-        {
-            WasSucces = true,
-            Result = row
-        };
-    }
-
-    public virtual async Task<ActionResponse<T>> GetAsync(string firstName)
-    {
-        var row = await _entity.FindAsync(firstName);
         if (row == null)
         {
             return new ActionResponse<T>

@@ -1,12 +1,10 @@
 ﻿using Employees.Shared.Responses;
 
-namespace Orders.Backend.Repositories.Interfaces;
+namespace Employees.Backend.Repositories.Interfaces;
 
 public interface IGenericRepository<T> where T : class
 {
     Task<ActionResponse<T>> GetAsync(int id);
-
-    Task<ActionResponse<T>> GetAsync(string firstName);
 
     Task<ActionResponse<IEnumerable<T>>> GetAsync();
 
