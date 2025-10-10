@@ -3,3 +3,21 @@
 <h3>Empleados</h3>
 
 
+@if(employees == null)
+{
+    <Loading/>
+}
+else
+{
+    <table border="1">
+        <tr>
+            <td>Empleado</td>
+        </tr>
+        @foreach(var employees in employees)
+        {
+            <tr>
+                <td>@employees.FirstName</td>
+            </tr>
+        }
+    </table>
+}
