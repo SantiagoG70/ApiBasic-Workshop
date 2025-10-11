@@ -1,4 +1,5 @@
-﻿@page "/employees"
+﻿@using System.Globalization
+@page "/employees"
 
 @if (loading)
 {
@@ -28,12 +29,14 @@ else
         </ToolBarContent>
         <HeaderContent>
             <MudTh>Empleado</MudTh>
-            <MudTh style="width: 120px;">Activo</MudTh>
-            <MudTh style="width: 270px;">Acciones</MudTh>
+            <MudTh style="width:140px;">Salario</MudTh>
+            <MudTh style="width:120px;">Activo</MudTh>
+            <MudTh style="width:270px;">Acciones</MudTh>
         </HeaderContent>
 
         <RowTemplate>
-            <MudTd>@($"{context.FirstName} {context.LastName}")</MudTd>
+            <MudTd>@context.FirstName @context.LastName</MudTd>
+            <MudTd>@context.Salary.ToString("C0", new CultureInfo("es-CO"))</MudTd>
             <MudTd>@(context.IsActive ? "Sí" : "No")</MudTd>
             <MudTd>
                 <MudTooltip Text="Editar">

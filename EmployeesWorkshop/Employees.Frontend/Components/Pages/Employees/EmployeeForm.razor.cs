@@ -12,6 +12,12 @@ public partial class EmployeeForm
     [EditorRequired, Parameter] public EventCallback OnValidSubmit { get; set; }
     [EditorRequired, Parameter] public EventCallback ReturnAction { get; set; }
 
+    protected override void OnParametersSet()
+    {
+        if (editContext is null || !ReferenceEquals(editContext.Model, Employee))
+            editContext = new EditContext(Employee);
+    }
+
     protected override void OnInitialized()
     {
         editContext = new(Employee);

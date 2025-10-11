@@ -100,11 +100,11 @@ public partial class EmployeesIndex
             var parameters = new DialogParameters
             {
                 { "Id", id }
-            }; dialog = await DialogService.ShowAsync<EmployeeEdit>("Editar país", parameters, options);
+            }; dialog = await DialogService.ShowAsync<EmployeeEdit>("Editar Empleado", parameters, options);
         }
         else
         {
-            dialog = await DialogService.ShowAsync<EmployeeCreate>("Nuevo país", options);
+            dialog = await DialogService.ShowAsync<EmployeeCreate>("Nuevo empleado", options);
         }
 
         var result = await dialog.Result;
@@ -119,7 +119,7 @@ public partial class EmployeesIndex
     {
         var parameters = new DialogParameters
         {
-            { "Message", $"Estas seguro de borrar el país: {employee.FirstName}" }
+            { "Message", $"Estas seguro de borrar el empleado: {employee.FirstName}" }
         };
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
         var dialog = await DialogService.ShowAsync<ConfirmDialog>("Confirmación", parameters, options);
