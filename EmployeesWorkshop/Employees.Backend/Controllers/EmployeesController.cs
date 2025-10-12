@@ -55,5 +55,16 @@ namespace Employees.Backend.Controllers
 
             return Ok(filtered);
         }
+
+        [HttpGet("totalRecords")]
+        public override async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+        {
+            var action = await _employeesUnitOfWork.GetTotalRecordsAsync(pagination);
+            if (action.WasSucces)
+            {
+                return Ok(action.Result);
+            }
+            return BadRequest();
+        }
     }
 }

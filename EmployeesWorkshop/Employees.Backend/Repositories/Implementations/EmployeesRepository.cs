@@ -1,9 +1,11 @@
 ﻿using Employees.Backend.Data;
 using Employees.Backend.Repositories.Interfaces;
 using Employees.Backend.UnitsOfWork.Implementations;
+using Employees.Shared.DTOs;
 using Employees.Shared.Entities;
 using Employees.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Employees.Backend.Repositories.Implementations;
 
@@ -16,9 +18,16 @@ public class EmployeesRepository : GenericRepository<Employee>, IEmployeesReposi
         _context = context;
     }
 
-    public override async Task<ActionResponse<IEnumerable<Employee>>> GetAsync()
+    public override async Task<ActionResponse<IEnumerable<Employee>>> GetAsync(PaginationDTO pagination)
     {
-        var employees = await _context.Employees
+        var query = _context.Employees.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            query = query.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        var employees = await query
             .OrderBy(x => x.FirstName)
             .ToListAsync();
 
