@@ -35,6 +35,7 @@ public partial class EmployeeEdit
         else
         {
             employee = responseHttp.Response;
+            StateHasChanged();
         }
     }
 
