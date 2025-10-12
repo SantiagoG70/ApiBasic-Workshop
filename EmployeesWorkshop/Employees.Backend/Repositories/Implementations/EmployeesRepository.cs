@@ -25,7 +25,6 @@ public class EmployeesRepository : GenericRepository<Employee>, IEmployeesReposi
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
             query = query.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
-            query = query.Union(_context.Employees.Where(x => x.LastName.ToLower().Contains(pagination.Filter.ToLower())));
         }
 
         var employees = await query
