@@ -1,0 +1,16 @@
+﻿﻿<MudNavMenu>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Inicio</MudNavLink>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <MudNavLink Href="Employees" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.PersonAddAlt1">Empleados</MudNavLink>
+            <MudNavLink Href="countries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">Países</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Roles="Employee">
+        <Authorized>
+            <MudNavLink Href="Employees" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.PersonAddAlt1">Empleados</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+</MudNavMenu>
+
+

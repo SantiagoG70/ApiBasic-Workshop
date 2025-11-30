@@ -1,0 +1,4 @@
+﻿SELECT COUNT(*) FROM States;
+SELECT COUNT(*) FROM Cities;
+SELECT TOP 20 * FROM States WHERE CountryId = 3;
+SELECT TOP 20 * FROM Cities WHERE StateId IN (SELECT Id FROM States WHERE CountryId = 3);

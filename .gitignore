@@ -1,0 +1,11 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio
+.vs/
+EmployeesWorkshop/.vs/
+
+# No subir appsettings con claves
+EmployeesWorkshop/Employees.Backend/appsettings.json
+
